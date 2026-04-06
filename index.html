@@ -4,10 +4,361 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="Carl Dave Tampoy — Software engineer portfolio. Skills, services, and selected projects."
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap"
+			rel="stylesheet"
+		/>
 		<link rel="stylesheet" href="./css/style.css" />
-		<title>I Am Carl Dave</title>
+		<title>Carl Dave Tampoy — Software Engineer</title>
 	</head>
 	<body>
-		<h1>Hello Dave</h1>
+		<div class="scroll-bg" id="scroll-bg" aria-hidden="true"></div>
+		<a class="skip-link" href="#main">Skip to content</a>
+
+		<header class="site-header">
+			<div class="header-inner">
+				<a class="logo" href="#">Carl Dave Tampoy</a>
+				<button
+					class="nav-toggle"
+					type="button"
+					aria-expanded="false"
+					aria-controls="site-nav"
+					aria-label="Open menu"
+				>
+					<span class="nav-toggle-bar"></span>
+					<span class="nav-toggle-bar"></span>
+					<span class="nav-toggle-bar"></span>
+				</button>
+				<nav class="nav" id="site-nav" aria-label="Primary">
+					<ul class="nav-list">
+						<li><a href="#about">About</a></li>
+						<li><a href="#skills">Skills</a></li>
+						<li><a href="#services">Services</a></li>
+						<li><a href="#projects">Projects</a></li>
+						<li><a href="#contact" class="nav-cta">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<main id="main">
+			<section class="hero reveal-section is-visible" data-section="hero" aria-labelledby="hero-title">
+				<div class="hero-bg" aria-hidden="true"></div>
+				<div class="container hero-content">
+					<p class="hero-kicker">Software engineer</p>
+					<h1 id="hero-title" class="hero-title">
+						Hi, I’m <span class="hero-name">Carl Dave Tampoy</span>
+					</h1>
+					<p class="hero-lead">
+						I design and build reliable software—clear architecture, thoughtful UX, and
+						code that teams can maintain.
+					</p>
+					<div class="hero-actions">
+						<a class="btn btn-primary" href="#projects">View projects</a>
+						<a class="btn btn-ghost" href="#contact">Get in touch</a>
+					</div>
+				</div>
+			</section>
+
+			<section id="about" class="section about reveal-section" data-section="about" aria-labelledby="about-title">
+				<div class="container">
+					<h2 id="about-title" class="section-title">About me</h2>
+					<div class="about-grid">
+						<div class="about-text">
+							<p class="lead">
+								I’m a software engineer with <strong>over five years of experience</strong>
+								turning ideas into production systems. I care about performance,
+								accessibility, and shipping features that stay maintainable as products grow.
+							</p>
+							<p>
+								I’ve worked across the stack—from APIs and data layers to polished front ends—and
+								I enjoy collaborating with designers, product, and other engineers to deliver
+								work we’re proud of.
+							</p>
+						</div>
+						<aside class="about-card" aria-label="Quick facts">
+							<h3 class="about-card-title">At a glance</h3>
+							<ul class="facts">
+								<li><span class="fact-label">Role</span> Software engineer</li>
+								<li><span class="fact-label">Experience</span> 5+ years</li>
+								<li><span class="fact-label">Focus</span> Full-stack &amp; quality</li>
+								<li><span class="fact-label">Location</span> <span class="muted">Update as needed</span></li>
+							</ul>
+						</aside>
+					</div>
+				</div>
+			</section>
+
+			<section id="skills" class="section skills section-alt reveal-section" data-section="skills" aria-labelledby="skills-title">
+				<div class="container">
+					<h2 id="skills-title" class="section-title">Skills</h2>
+					<p class="section-intro">
+						Tools and technologies I use regularly to design, build, and ship software.
+					</p>
+					<ul class="skill-tags" role="list">
+						<li>JavaScript / TypeScript</li>
+						<li>React</li>
+						<li>Node.js</li>
+						<li>REST &amp; APIs</li>
+						<li>SQL</li>
+						<li>Git</li>
+						<li>HTML &amp; CSS</li>
+						<li>Testing</li>
+						<li>CI/CD</li>
+						<li>Cloud basics</li>
+					</ul>
+					<p class="note">
+						Replace or extend this list to match your exact stack—this is a starting point for your
+						portfolio.
+					</p>
+				</div>
+			</section>
+
+			<section id="services" class="section services reveal-section" data-section="services" aria-labelledby="services-title">
+				<div class="container">
+					<h2 id="services-title" class="section-title">Services</h2>
+					<p class="section-intro">
+						How I can help your team or your next product.
+					</p>
+					<ul class="service-grid" role="list">
+						<li class="service-card">
+							<h3 class="service-card-title">Web applications</h3>
+							<p>
+								End-to-end development: responsive UIs, solid backends, and integrations that
+								fit your stack.
+							</p>
+						</li>
+						<li class="service-card">
+							<h3 class="service-card-title">APIs &amp; integrations</h3>
+							<p>
+								Design and implementation of RESTful services, third-party APIs, and data flows
+								you can reason about.
+							</p>
+						</li>
+						<li class="service-card">
+							<h3 class="service-card-title">Code quality &amp; reviews</h3>
+							<p>
+								Refactors, test coverage, and review practices that keep velocity high without
+								sacrificing stability.
+							</p>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<section id="projects" class="section projects section-alt reveal-section" data-section="projects" aria-labelledby="projects-title">
+				<div class="container">
+					<h2 id="projects-title" class="section-title">Projects</h2>
+					<p class="section-intro">
+						Selected work—each card links to the repo or live demo when available.
+					</p>
+					<ul class="project-grid" role="list">
+						<li class="project-tile">
+							<a
+								class="project-tile-link"
+								href="https://github.com/iamcdave/iamcdave.github.io"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<div class="project-thumb">
+									<img
+										src="./images/projects/placeholder-portfolio.svg"
+										width="800"
+										height="450"
+										alt=""
+										loading="lazy"
+										decoding="async"
+									/>
+								</div>
+								<div class="project-tile-body">
+									<h3 class="project-title">Developer portfolio</h3>
+									<p class="project-desc">
+										Personal site on GitHub Pages—responsive layout, accessible markup, easy to extend.
+									</p>
+									<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+								</div>
+							</a>
+						</li>
+						<li class="project-tile project-tile--static">
+							<article class="project-tile-card">
+								<div class="project-thumb">
+									<img
+										src="./images/projects/placeholder-app.svg"
+										width="800"
+										height="450"
+										alt=""
+										loading="lazy"
+										decoding="async"
+									/>
+								</div>
+								<div class="project-tile-body">
+									<h3 class="project-title">Product web app</h3>
+									<p class="project-desc">
+										Placeholder—replace with your app name and link to demo or source.
+									</p>
+									<span class="project-cta project-cta-muted">Add link when ready</span>
+								</div>
+							</article>
+						</li>
+						<li class="project-tile project-tile--static">
+							<article class="project-tile-card">
+								<div class="project-thumb">
+									<img
+										src="./images/projects/placeholder-api.svg"
+										width="800"
+										height="450"
+										alt=""
+										loading="lazy"
+										decoding="async"
+									/>
+								</div>
+								<div class="project-tile-body">
+									<h3 class="project-title">Backend &amp; API service</h3>
+									<p class="project-desc">
+										Placeholder—swap for a real service, docs URL, or repository.
+									</p>
+									<span class="project-cta project-cta-muted">Add link when ready</span>
+								</div>
+							</article>
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<section id="contact" class="section contact reveal-section" data-section="contact" aria-labelledby="contact-title">
+				<div class="container contact-inner">
+					<h2 id="contact-title" class="section-title">Contact</h2>
+					<p class="section-intro contact-lead">
+						Want to collaborate or say hello? Reach out through the channels below.
+					</p>
+					<ul class="contact-list" role="list">
+						<li>
+							<span class="contact-label">GitHub</span>
+							<a href="https://github.com/iamcdave" target="_blank" rel="noopener noreferrer"
+								>github.com/iamcdave</a
+							>
+						</li>
+						<li>
+							<span class="contact-label">Email</span>
+							<a href="mailto:you@example.com">you@example.com</a>
+							<span class="contact-hint">(update with your address)</span>
+						</li>
+					</ul>
+				</div>
+			</section>
+		</main>
+
+		<footer class="site-footer">
+			<div class="container footer-inner">
+				<p>© <span id="year"></span> Carl Dave Tampoy. All rights reserved.</p>
+			</div>
+		</footer>
+
+		<script>
+			(function () {
+				document.getElementById("year").textContent = new Date().getFullYear();
+
+				var toggle = document.querySelector(".nav-toggle");
+				var nav = document.getElementById("site-nav");
+				if (toggle && nav) {
+					toggle.addEventListener("click", function () {
+						var open = nav.classList.toggle("is-open");
+						toggle.setAttribute("aria-expanded", open ? "true" : "false");
+						toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+					});
+					nav.querySelectorAll("a").forEach(function (link) {
+						link.addEventListener("click", function () {
+							nav.classList.remove("is-open");
+							toggle.setAttribute("aria-expanded", "false");
+							toggle.setAttribute("aria-label", "Open menu");
+						});
+					});
+				}
+
+				var sections = document.querySelectorAll("main section[data-section]");
+				/* Per-section background: primary hue + secondary glow hue (smooth crossfade while scrolling) */
+				var palettes = [
+					{ h: 214, g: 200 },
+					{ h: 198, g: 188 },
+					{ h: 268, g: 245 },
+					{ h: 152, g: 165 },
+					{ h: 232, g: 210 },
+					{ h: 205, g: 195 },
+				];
+
+				function prefersReducedMotion() {
+					return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+				}
+
+				function updateScrollBackground() {
+					if (!sections.length) return;
+					var vh = window.innerHeight;
+					var mid = vh * 0.42;
+					var best = 0;
+					var bestScore = -Infinity;
+					for (var i = 0; i < sections.length; i++) {
+						var r = sections[i].getBoundingClientRect();
+						var overlap = Math.min(r.bottom, vh) - Math.max(r.top, 0);
+						if (overlap <= 0) continue;
+						var center = r.top + r.height * 0.35;
+						var dist = Math.abs(center - mid);
+						var score = overlap / (8 + dist * 0.02);
+						if (score > bestScore) {
+							bestScore = score;
+							best = i;
+						}
+					}
+					var p = palettes[best] || palettes[0];
+					var root = document.documentElement;
+					root.style.setProperty("--scroll-hue", String(p.h));
+					root.style.setProperty("--scroll-glow-hue", String(p.g));
+				}
+
+				var scrollTicking = false;
+				function onScrollOrResize() {
+					if (scrollTicking) return;
+					scrollTicking = true;
+					requestAnimationFrame(function () {
+						scrollTicking = false;
+						updateScrollBackground();
+					});
+				}
+
+				if (sections.length) {
+					updateScrollBackground();
+					if (!prefersReducedMotion()) {
+						window.addEventListener("scroll", onScrollOrResize, { passive: true });
+						window.addEventListener("resize", onScrollOrResize);
+					}
+				}
+
+				var revealNodes = document.querySelectorAll(".reveal-section");
+				if (revealNodes.length && !prefersReducedMotion()) {
+					var revealObserver = new IntersectionObserver(
+						function (entries) {
+							entries.forEach(function (entry) {
+								if (entry.isIntersecting) {
+									entry.target.classList.add("is-visible");
+								}
+							});
+						},
+						{ root: null, rootMargin: "0px 0px -8% 0px", threshold: [0, 0.08, 0.15] }
+					);
+					revealNodes.forEach(function (el) {
+						revealObserver.observe(el);
+					});
+				} else if (revealNodes.length) {
+					revealNodes.forEach(function (el) {
+						el.classList.add("is-visible");
+					});
+				}
+			})();
+		</script>
 	</body>
 </html>
