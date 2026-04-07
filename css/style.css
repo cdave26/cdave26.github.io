@@ -19,8 +19,6 @@
 	--max: 1100px;
 	--scroll-hue: 214;
 	--scroll-glow-hue: 200;
-	--grid-parallax-x: 0px;
-	--grid-parallax-y: 0px;
 	--chameleon-from: 220deg;
 }
 
@@ -46,7 +44,7 @@ body {
 	transition: background-color 1.35s ease;
 }
 
-/* Chameleon viewport: hue shifts with section (JS) + grids + mesh */
+/* Chameleon viewport: hue shifts with section (JS) + soft wash (no grid) */
 .scroll-bg {
 	position: fixed;
 	inset: 0;
@@ -54,37 +52,6 @@ body {
 	pointer-events: none;
 	background-color: hsl(var(--scroll-hue), 26%, 7.5%);
 	background-image:
-		/* Fine grid — line color follows active hue */
-		repeating-linear-gradient(
-			to right,
-			hsla(var(--scroll-hue), 32%, 58%, 0.11) 0,
-			hsla(var(--scroll-hue), 32%, 58%, 0.11) 1px,
-			transparent 1px,
-			transparent 44px
-		),
-		repeating-linear-gradient(
-			to bottom,
-			hsla(var(--scroll-glow-hue), 28%, 52%, 0.09) 0,
-			hsla(var(--scroll-glow-hue), 28%, 52%, 0.09) 1px,
-			transparent 1px,
-			transparent 44px
-		),
-		/* Coarser “scales” / diagonal mesh */
-		repeating-linear-gradient(
-			118deg,
-			hsla(calc(var(--scroll-hue) + 18), 38%, 48%, 0.07) 0,
-			hsla(calc(var(--scroll-hue) + 18), 38%, 48%, 0.07) 1px,
-			transparent 1px,
-			transparent 72px
-		),
-		repeating-linear-gradient(
-			32deg,
-			hsla(calc(var(--scroll-glow-hue) + 55), 35%, 46%, 0.05) 0,
-			hsla(calc(var(--scroll-glow-hue) + 55), 35%, 46%, 0.05) 1px,
-			transparent 1px,
-			transparent 96px
-		),
-		/* Soft iridescent wash */
 		conic-gradient(
 			from var(--chameleon-from) at 50% 42%,
 			hsla(var(--scroll-hue), 45%, 18%, 0.22),
@@ -94,24 +61,38 @@ body {
 		),
 		radial-gradient(ellipse 85% 65% at 82% -8%, hsla(var(--scroll-glow-hue), 88%, 58%, 0.2), transparent 52%),
 		radial-gradient(ellipse 55% 45% at 8% 92%, hsla(calc(var(--scroll-glow-hue) + 35), 72%, 48%, 0.1), transparent 48%);
-	background-size:
-		auto,
-		auto,
-		auto,
-		auto,
-		160% 160%,
-		auto,
-		auto;
-	background-position:
-		var(--grid-parallax-x) var(--grid-parallax-y),
-		calc(var(--grid-parallax-x) * -0.6) calc(var(--grid-parallax-y) * 0.8),
-		calc(var(--grid-parallax-x) * 0.4) var(--grid-parallax-y),
-		calc(var(--grid-parallax-y) * -0.3) var(--grid-parallax-x),
-		center center,
-		center top,
-		center bottom;
-	background-repeat: repeat, repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
+	background-size: 160% 160%, auto, auto;
+	background-position: center center, center top, center bottom;
+	background-repeat: no-repeat, no-repeat, no-repeat;
 	transition: background-color 1.35s ease;
+}
+
+/* particles.js sits under chameleon overlay; interactivity uses detect_on: window */
+.particles-bg,
+#particles-js {
+	position: fixed;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.scroll-bg--over-particles {
+	/* Lighter overlay so particles read clearly */
+	opacity: 0.68;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.particles-bg,
+	#particles-js {
+		display: none !important;
+	}
+
+	.scroll-bg--over-particles {
+		opacity: 1;
+	}
 }
 
 main,
@@ -613,35 +594,7 @@ a:hover {
 
 .section::after,
 .hero::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	z-index: 0;
-	opacity: 0.22;
-	background-image:
-		repeating-linear-gradient(
-			to right,
-			hsla(var(--scroll-hue), 40%, 62%, 0.12) 0 1px,
-			transparent 1px 88px
-		),
-		repeating-linear-gradient(
-			to bottom,
-			hsla(var(--scroll-glow-hue), 35%, 55%, 0.1) 0 1px,
-			transparent 1px 88px
-		);
-	background-size: 100% 100%;
-	background-position: var(--grid-parallax-x) var(--grid-parallax-y);
-	background-attachment: fixed;
-	mix-blend-mode: soft-light;
-}
-
-@media (max-width: 768px) {
-	.section::after,
-	.hero::after {
-		background-attachment: scroll;
-		opacity: 0.16;
-	}
+	display: none;
 }
 
 .hero-content,

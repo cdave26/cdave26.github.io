@@ -34,7 +34,8 @@
 		<link rel="stylesheet" href="./css/style.css" />
 	</head>
 	<body>
-		<div class="scroll-bg" id="scroll-bg" aria-hidden="true"></div>
+		<div id="particles-js" class="particles-bg" aria-hidden="true"></div>
+		<div class="scroll-bg scroll-bg--over-particles" id="scroll-bg" aria-hidden="true"></div>
 		<a class="skip-link" href="#main">Skip to content</a>
 
 		<header class="site-header">
@@ -850,6 +851,7 @@
 			</div>
 		</footer>
 
+		<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 		<script>
 			(function () {
 				document.getElementById("year").textContent = new Date().getFullYear();
@@ -886,6 +888,82 @@
 					return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 				}
 
+				/* particles.js — CodePen technovore/aOdGjY style (network + grab + push) */
+				function initParticlesBackground() {
+					var el = document.getElementById("particles-js");
+					if (!el || typeof particlesJS === "undefined") return;
+					if (prefersReducedMotion()) {
+						el.style.display = "none";
+						el.innerHTML = "";
+						return;
+					}
+					particlesJS("particles-js", {
+						particles: {
+							number: {
+								value: 165,
+								density: { enable: true, value_area: 620 },
+							},
+							color: {
+								value: ["#5eb0ff", "#3d9cfd", "#8b9fff", "#6ee7b7", "#c4b5fd", "#fbbf24"],
+							},
+							shape: { type: "circle", stroke: { width: 0, color: "#fff" } },
+							opacity: {
+								value: 0.78,
+								random: true,
+								anim: { enable: false, speed: 1, opacity_min: 0.28, sync: false },
+							},
+							size: {
+								value: 2.6,
+								random: true,
+								anim: { enable: false, speed: 40, size_min: 0.15, sync: false },
+							},
+							line_linked: {
+								enable: true,
+								distance: 132,
+								color: "#b8d6ff",
+								opacity: 0.48,
+								width: 1,
+							},
+							move: {
+								enable: true,
+								speed: 0.9,
+								direction: "none",
+								random: true,
+								straight: false,
+								out_mode: "out",
+								bounce: false,
+							},
+						},
+						interactivity: {
+							detect_on: "window",
+							events: {
+								onhover: { enable: true, mode: "grab" },
+								onclick: { enable: true, mode: "push" },
+								resize: true,
+							},
+							modes: {
+								grab: {
+									distance: 155,
+									line_linked: { opacity: 0.95 },
+								},
+								bubble: {
+									distance: 400,
+									size: 40,
+									duration: 2,
+									opacity: 8,
+									speed: 3,
+								},
+								repulse: { distance: 200, duration: 0.4 },
+								push: { particles_nb: 4 },
+								remove: { particles_nb: 2 },
+							},
+						},
+						retina_detect: true,
+					});
+				}
+
+				initParticlesBackground();
+
 				function updateScrollBackground() {
 					if (!sections.length) return;
 					var vh = window.innerHeight;
@@ -910,14 +988,6 @@
 					root.style.setProperty("--scroll-glow-hue", String(p.g));
 					/* Conic “skin” rotation follows active section */
 					root.style.setProperty("--chameleon-from", String(Math.round(p.h * 1.35 + 95)) + "deg");
-					var sy = window.scrollY || window.pageYOffset || 0;
-					if (prefersReducedMotion()) {
-						root.style.setProperty("--grid-parallax-x", "0px");
-						root.style.setProperty("--grid-parallax-y", "0px");
-					} else {
-						root.style.setProperty("--grid-parallax-x", sy * 0.026 + "px");
-						root.style.setProperty("--grid-parallax-y", sy * 0.055 + "px");
-					}
 				}
 
 				var scrollTicking = false;
