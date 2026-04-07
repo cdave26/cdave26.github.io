@@ -19,6 +19,9 @@
 	--max: 1100px;
 	--scroll-hue: 214;
 	--scroll-glow-hue: 200;
+	--grid-parallax-x: 0px;
+	--grid-parallax-y: 0px;
+	--chameleon-from: 220deg;
 }
 
 *,
@@ -43,16 +46,71 @@ body {
 	transition: background-color 1.35s ease;
 }
 
-/* Full-viewport tint that shifts hue while scrolling (synced in JS) */
+/* Chameleon viewport: hue shifts with section (JS) + grids + mesh */
 .scroll-bg {
 	position: fixed;
 	inset: 0;
 	z-index: 0;
 	pointer-events: none;
-	background-color: hsl(var(--scroll-hue), 24%, 8%);
+	background-color: hsl(var(--scroll-hue), 26%, 7.5%);
 	background-image:
-		radial-gradient(ellipse 85% 65% at 82% -8%, hsla(var(--scroll-glow-hue), 88%, 58%, 0.18), transparent 52%),
-		radial-gradient(ellipse 55% 45% at 8% 92%, hsla(calc(var(--scroll-glow-hue) + 35), 72%, 48%, 0.09), transparent 48%);
+		/* Fine grid — line color follows active hue */
+		repeating-linear-gradient(
+			to right,
+			hsla(var(--scroll-hue), 32%, 58%, 0.11) 0,
+			hsla(var(--scroll-hue), 32%, 58%, 0.11) 1px,
+			transparent 1px,
+			transparent 44px
+		),
+		repeating-linear-gradient(
+			to bottom,
+			hsla(var(--scroll-glow-hue), 28%, 52%, 0.09) 0,
+			hsla(var(--scroll-glow-hue), 28%, 52%, 0.09) 1px,
+			transparent 1px,
+			transparent 44px
+		),
+		/* Coarser “scales” / diagonal mesh */
+		repeating-linear-gradient(
+			118deg,
+			hsla(calc(var(--scroll-hue) + 18), 38%, 48%, 0.07) 0,
+			hsla(calc(var(--scroll-hue) + 18), 38%, 48%, 0.07) 1px,
+			transparent 1px,
+			transparent 72px
+		),
+		repeating-linear-gradient(
+			32deg,
+			hsla(calc(var(--scroll-glow-hue) + 55), 35%, 46%, 0.05) 0,
+			hsla(calc(var(--scroll-glow-hue) + 55), 35%, 46%, 0.05) 1px,
+			transparent 1px,
+			transparent 96px
+		),
+		/* Soft iridescent wash */
+		conic-gradient(
+			from var(--chameleon-from) at 50% 42%,
+			hsla(var(--scroll-hue), 45%, 18%, 0.22),
+			hsla(calc(var(--scroll-glow-hue) + 40), 42%, 14%, 0.12),
+			hsla(calc(var(--scroll-hue) + 80), 38%, 16%, 0.18),
+			hsla(var(--scroll-hue), 45%, 18%, 0.22)
+		),
+		radial-gradient(ellipse 85% 65% at 82% -8%, hsla(var(--scroll-glow-hue), 88%, 58%, 0.2), transparent 52%),
+		radial-gradient(ellipse 55% 45% at 8% 92%, hsla(calc(var(--scroll-glow-hue) + 35), 72%, 48%, 0.1), transparent 48%);
+	background-size:
+		auto,
+		auto,
+		auto,
+		auto,
+		160% 160%,
+		auto,
+		auto;
+	background-position:
+		var(--grid-parallax-x) var(--grid-parallax-y),
+		calc(var(--grid-parallax-x) * -0.6) calc(var(--grid-parallax-y) * 0.8),
+		calc(var(--grid-parallax-x) * 0.4) var(--grid-parallax-y),
+		calc(var(--grid-parallax-y) * -0.3) var(--grid-parallax-x),
+		center center,
+		center top,
+		center bottom;
+	background-repeat: repeat, repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
 	transition: background-color 1.35s ease;
 }
 
@@ -234,7 +292,8 @@ a:hover {
 .hero {
 	position: relative;
 	padding: clamp(4rem, 12vw, 7rem) 0 clamp(4rem, 10vw, 6rem);
-	overflow: hidden;
+	overflow-x: clip;
+	overflow-y: visible;
 }
 
 .hero-bg {
@@ -271,6 +330,7 @@ a:hover {
 .hero-profile {
 	margin: 0;
 	justify-self: center;
+	padding: clamp(1rem, 3vw, 1.75rem);
 }
 
 @media (min-width: 900px) {
@@ -279,13 +339,145 @@ a:hover {
 	}
 }
 
-.profile-frame {
+/* Wrapper: smoke + photo; bouncy hover on the whole unit */
+.profile-visual {
+	position: relative;
 	width: min(280px, 72vw);
+	aspect-ratio: 1;
+	margin-inline: auto;
+	transform-origin: center center;
+	transition:
+		transform 0.55s cubic-bezier(0.34, 1.65, 0.48, 1),
+		filter 0.45s ease;
+	will-change: transform;
+}
+
+.profile-visual:hover {
+	transform: scale(1.08) translateY(-6px);
+}
+
+.profile-visual:active {
+	transform: scale(1.02) translateY(-2px);
+	transition-duration: 0.12s;
+}
+
+/* Drifting smoke / mist behind the portrait */
+.profile-smoke {
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	pointer-events: none;
+	filter: blur(36px);
+	opacity: 0.55;
+	mix-blend-mode: screen;
+	z-index: 0;
+}
+
+.profile-smoke--1 {
+	inset: -18% -12% -8% -18%;
+	background:
+		radial-gradient(ellipse 55% 45% at 30% 40%, rgba(100, 180, 255, 0.55) 0%, transparent 65%),
+		radial-gradient(ellipse 40% 50% at 70% 60%, rgba(61, 156, 253, 0.25) 0%, transparent 60%);
+	animation: profileSmokeDriftA 9s ease-in-out infinite;
+}
+
+.profile-smoke--2 {
+	inset: -12% -20% -15% -8%;
+	background: radial-gradient(ellipse 50% 55% at 65% 35%, rgba(140, 200, 255, 0.4) 0%, transparent 62%);
+	animation: profileSmokeDriftB 11s ease-in-out infinite;
+	opacity: 0.45;
+}
+
+.profile-smoke--3 {
+	inset: -25% -8% -10% -25%;
+	background: radial-gradient(circle at 50% 55%, rgba(200, 220, 255, 0.22) 0%, transparent 55%);
+	animation: profileSmokeDriftC 13s ease-in-out infinite;
+	filter: blur(44px);
+	opacity: 0.5;
+}
+
+.profile-smoke--4 {
+	inset: -8% -25% -22% -12%;
+	background: radial-gradient(ellipse 45% 40% at 40% 70%, rgba(61, 156, 253, 0.35) 0%, transparent 58%);
+	animation: profileSmokeDriftD 7.5s ease-in-out infinite;
+	opacity: 0.4;
+}
+
+@keyframes profileSmokeDriftA {
+	0%,
+	100% {
+		transform: translate(0, 0) scale(1) rotate(0deg);
+		opacity: 0.5;
+	}
+	33% {
+		transform: translate(6%, -4%) scale(1.08) rotate(4deg);
+		opacity: 0.65;
+	}
+	66% {
+		transform: translate(-5%, 5%) scale(0.95) rotate(-3deg);
+		opacity: 0.42;
+	}
+}
+
+@keyframes profileSmokeDriftB {
+	0%,
+	100% {
+		transform: translate(0, 0) scale(1.05);
+		opacity: 0.4;
+	}
+	50% {
+		transform: translate(-8%, 6%) scale(1.12);
+		opacity: 0.58;
+	}
+}
+
+@keyframes profileSmokeDriftC {
+	0%,
+	100% {
+		transform: translate(0, 0) scale(1);
+	}
+	40% {
+		transform: translate(5%, 8%) scale(1.15);
+	}
+	70% {
+		transform: translate(-6%, -3%) scale(0.92);
+	}
+}
+
+@keyframes profileSmokeDriftD {
+	0%,
+	100% {
+		transform: translate(0, 0) rotate(0deg);
+	}
+	25% {
+		transform: translate(4%, -6%) rotate(5deg);
+	}
+	75% {
+		transform: translate(-4%, 4%) rotate(-4deg);
+	}
+}
+
+.profile-frame {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
 	aspect-ratio: 1;
 	border-radius: 50%;
 	padding: 4px;
 	background: linear-gradient(145deg, rgba(61, 156, 253, 0.55), rgba(61, 156, 253, 0.12));
 	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+	transition:
+		box-shadow 0.45s cubic-bezier(0.34, 1.45, 0.48, 1),
+		transform 0.45s cubic-bezier(0.34, 1.45, 0.48, 1);
+}
+
+.profile-visual:hover .profile-frame {
+	box-shadow:
+		0 28px 60px rgba(0, 0, 0, 0.5),
+		0 0 0 1px rgba(61, 156, 253, 0.35),
+		0 0 48px rgba(61, 156, 253, 0.2);
+	transform: scale(1.02);
 }
 
 .profile-photo {
@@ -295,6 +487,35 @@ a:hover {
 	border-radius: 50%;
 	object-fit: cover;
 	background: var(--bg-card);
+	transition: transform 0.5s cubic-bezier(0.34, 1.55, 0.48, 1);
+}
+
+.profile-visual:hover .profile-photo {
+	transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.profile-smoke,
+	.profile-smoke--1,
+	.profile-smoke--2,
+	.profile-smoke--3,
+	.profile-smoke--4 {
+		animation: none;
+		opacity: 0.35;
+	}
+
+	.profile-visual,
+	.profile-visual:hover,
+	.profile-visual:active {
+		transform: none;
+		transition: none;
+	}
+
+	.profile-visual:hover .profile-frame,
+	.profile-visual:hover .profile-photo {
+		transform: none;
+		box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+	}
 }
 
 .visually-hidden {
@@ -384,26 +605,415 @@ a:hover {
 
 /* Sections */
 
+/* Sections sit above chameleon layer; optional local grid sheen */
+.section,
+.hero {
+	position: relative;
+}
+
+.section::after,
+.hero::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+	opacity: 0.22;
+	background-image:
+		repeating-linear-gradient(
+			to right,
+			hsla(var(--scroll-hue), 40%, 62%, 0.12) 0 1px,
+			transparent 1px 88px
+		),
+		repeating-linear-gradient(
+			to bottom,
+			hsla(var(--scroll-glow-hue), 35%, 55%, 0.1) 0 1px,
+			transparent 1px 88px
+		);
+	background-size: 100% 100%;
+	background-position: var(--grid-parallax-x) var(--grid-parallax-y);
+	background-attachment: fixed;
+	mix-blend-mode: soft-light;
+}
+
+@media (max-width: 768px) {
+	.section::after,
+	.hero::after {
+		background-attachment: scroll;
+		opacity: 0.16;
+	}
+}
+
+.hero-content,
+.section > .container {
+	position: relative;
+	z-index: 1;
+}
+
 .section {
 	padding: clamp(3.5rem, 8vw, 5rem) 0;
 }
 
 .section-alt {
-	background: rgba(255, 255, 255, 0.025);
-	border-block: 1px solid var(--border);
+	background: hsla(var(--scroll-hue), 22%, 10%, 0.35);
+	border-block: 1px solid hsla(var(--scroll-hue), 22%, 38%, 0.18);
+	backdrop-filter: blur(0);
+	transition:
+		background 1.2s ease,
+		border-color 1.2s ease;
 }
 
-/* Scroll-triggered section entrance */
-.reveal-section {
+/* --------------------------------------------------------------------------
+   Scroll-triggered section animations
+   -------------------------------------------------------------------------- */
+
+@keyframes revealHeroIn {
+	from {
+		opacity: 0;
+		transform: translateY(26px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Hero: stagger on first paint (keeps is-visible to avoid flash) */
+.hero.reveal-section.is-visible .hero-text > * {
+	animation: revealHeroIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.hero.reveal-section.is-visible .hero-text > *:nth-child(1) {
+	animation-delay: 0.06s;
+}
+
+.hero.reveal-section.is-visible .hero-text > *:nth-child(2) {
+	animation-delay: 0.14s;
+}
+
+.hero.reveal-section.is-visible .hero-text > *:nth-child(3) {
+	animation-delay: 0.22s;
+}
+
+.hero.reveal-section.is-visible .hero-text > *:nth-child(4) {
+	animation-delay: 0.3s;
+}
+
+.hero.reveal-section.is-visible .hero-profile {
+	animation: revealHeroIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.18s backwards;
+}
+
+/* Other sections: parent stays visible; children rise in with stagger */
+.reveal-section:not(.hero) {
+	opacity: 1;
+	transform: none;
+}
+
+.reveal-section:not(.hero) > .container > * {
+	opacity: 0;
+	transform: translateY(36px);
+	filter: blur(0);
+	transition:
+		opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section:not(.hero).is-visible > .container > * {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reveal-section:not(.hero).is-visible > .container > *:nth-child(1) {
+	transition-delay: 0.04s;
+}
+
+.reveal-section:not(.hero).is-visible > .container > *:nth-child(2) {
+	transition-delay: 0.1s;
+}
+
+.reveal-section:not(.hero).is-visible > .container > *:nth-child(3) {
+	transition-delay: 0.16s;
+}
+
+.reveal-section:not(.hero).is-visible > .container > *:nth-child(4) {
+	transition-delay: 0.22s;
+}
+
+.reveal-section:not(.hero).is-visible > .container > *:nth-child(5) {
+	transition-delay: 0.28s;
+}
+
+.reveal-section:not(.hero).is-visible > .container > *:nth-child(6) {
+	transition-delay: 0.34s;
+}
+
+.reveal-section:not(.hero).is-visible > .container > *:nth-child(7) {
+	transition-delay: 0.4s;
+}
+
+/* About: second column after text */
+.reveal-section:not(.hero) .about-grid > * {
+	opacity: 0;
+	transform: translateY(24px);
+	transition:
+		opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section:not(.hero).is-visible .about-grid > *:nth-child(1) {
+	opacity: 1;
+	transform: translateY(0);
+	transition-delay: 0.12s;
+}
+
+.reveal-section:not(.hero).is-visible .about-grid > *:nth-child(2) {
+	opacity: 1;
+	transform: translateY(0);
+	transition-delay: 0.22s;
+}
+
+/* Skill tags pop in */
+.reveal-section:not(.hero) .skill-tags li {
+	opacity: 0;
+	transform: translateY(14px) scale(0.97);
+	transition:
+		opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li {
+	opacity: 1;
+	transform: translateY(0) scale(1);
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(1) {
+	transition-delay: 0.2s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(2) {
+	transition-delay: 0.24s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(3) {
+	transition-delay: 0.28s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(4) {
+	transition-delay: 0.32s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(5) {
+	transition-delay: 0.36s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(6) {
+	transition-delay: 0.4s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(7) {
+	transition-delay: 0.44s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(8) {
+	transition-delay: 0.48s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(9) {
+	transition-delay: 0.52s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(10) {
+	transition-delay: 0.56s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(11) {
+	transition-delay: 0.6s;
+}
+
+.reveal-section:not(.hero).is-visible .skill-tags li:nth-child(12) {
+	transition-delay: 0.64s;
+}
+
+/* Service cards */
+.reveal-section:not(.hero) .service-card {
 	opacity: 0;
 	transform: translateY(28px);
 	transition:
-		opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-		transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-	will-change: opacity, transform;
+		opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.reveal-section.is-visible {
+.reveal-section:not(.hero).is-visible .service-card {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reveal-section:not(.hero).is-visible .service-card:nth-child(1) {
+	transition-delay: 0.14s;
+}
+
+.reveal-section:not(.hero).is-visible .service-card:nth-child(2) {
+	transition-delay: 0.2s;
+}
+
+.reveal-section:not(.hero).is-visible .service-card:nth-child(3) {
+	transition-delay: 0.26s;
+}
+
+.reveal-section:not(.hero).is-visible .service-card:nth-child(4) {
+	transition-delay: 0.32s;
+}
+
+.reveal-section:not(.hero).is-visible .service-card:nth-child(5) {
+	transition-delay: 0.38s;
+}
+
+.reveal-section:not(.hero).is-visible .service-card:nth-child(6) {
+	transition-delay: 0.44s;
+}
+
+.reveal-section:not(.hero).is-visible .service-card:nth-child(7) {
+	transition-delay: 0.5s;
+}
+
+/* Project tiles (initial grid + expanded; expand re-triggers via existing panel animation) */
+.reveal-section:not(.hero) .project-tile {
+	opacity: 0;
+	transform: translateY(22px);
+	transition:
+		opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section:not(.hero).is-visible .project-tile {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reveal-section:not(.hero).is-visible .project-grid > .project-tile:nth-child(1) {
+	transition-delay: 0.18s;
+}
+
+.reveal-section:not(.hero).is-visible .project-grid > .project-tile:nth-child(2) {
+	transition-delay: 0.24s;
+}
+
+.reveal-section:not(.hero).is-visible .project-grid > .project-tile:nth-child(3) {
+	transition-delay: 0.3s;
+}
+
+.reveal-section:not(.hero).is-visible .projects-toggle {
+	opacity: 0;
+	transform: translateY(12px);
+	transition:
+		opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section:not(.hero).is-visible .projects-toggle {
+	opacity: 1;
+	transform: translateY(0);
+	transition-delay: 0.34s;
+}
+
+/* Extra project grid: delay when section visible (tiles may still be in collapsed panel) */
+.reveal-section:not(.hero).is-visible .project-grid--extra .project-tile:nth-child(1) {
+	transition-delay: 0.05s;
+}
+
+.reveal-section:not(.hero).is-visible .project-grid--extra .project-tile:nth-child(2) {
+	transition-delay: 0.08s;
+}
+
+.reveal-section:not(.hero).is-visible .project-grid--extra .project-tile:nth-child(3) {
+	transition-delay: 0.11s;
+}
+
+/* Contact columns + form rows */
+.reveal-section:not(.hero) .contact-aside,
+.reveal-section:not(.hero) .contact-form-wrap {
+	opacity: 0;
+	transform: translateY(26px);
+	transition:
+		opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section:not(.hero).is-visible .contact-aside {
+	opacity: 1;
+	transform: translateY(0);
+	transition-delay: 0.12s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form-wrap {
+	opacity: 1;
+	transform: translateY(0);
+	transition-delay: 0.2s;
+}
+
+.reveal-section:not(.hero) .contact-form > * {
+	opacity: 0;
+	transform: translateY(16px);
+	transition:
+		opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > * {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(1) {
+	transition-delay: 0.26s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(2) {
+	transition-delay: 0.3s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(3) {
+	transition-delay: 0.34s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(4) {
+	transition-delay: 0.38s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(5) {
+	transition-delay: 0.42s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(6) {
+	transition-delay: 0.46s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(7) {
+	transition-delay: 0.5s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(8) {
+	transition-delay: 0.54s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(9) {
+	transition-delay: 0.58s;
+}
+
+.reveal-section:not(.hero).is-visible .contact-form > *:nth-child(10) {
+	transition-delay: 0.62s;
+}
+
+/* Footer */
+.site-footer.reveal-section > .container {
+	opacity: 0;
+	transform: translateY(16px);
+	transition:
+		opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+		transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-footer.reveal-section.is-visible > .container {
 	opacity: 1;
 	transform: translateY(0);
 }
@@ -415,11 +1025,45 @@ a:hover {
 		transition: none;
 	}
 
-	.reveal-section {
+	.hero.reveal-section.is-visible .hero-text > *,
+	.hero.reveal-section.is-visible .hero-profile {
+		animation: none;
+		opacity: 1;
+		transform: none;
+	}
+
+	.reveal-section:not(.hero) > .container > *,
+	.reveal-section:not(.hero) .about-grid > *,
+	.reveal-section:not(.hero) .skill-tags li,
+	.reveal-section:not(.hero) .service-card,
+	.reveal-section:not(.hero) .project-tile,
+	.reveal-section:not(.hero) .projects-toggle,
+	.reveal-section:not(.hero) .contact-aside,
+	.reveal-section:not(.hero) .contact-form-wrap,
+	.reveal-section:not(.hero) .contact-form > *,
+	.site-footer.reveal-section > .container {
 		opacity: 1;
 		transform: none;
 		transition: none;
-		will-change: auto;
+	}
+
+	.reveal-section:not(.hero).is-visible > .container > *,
+	.reveal-section:not(.hero).is-visible .about-grid > *,
+	.reveal-section:not(.hero).is-visible .skill-tags li,
+	.reveal-section:not(.hero).is-visible .service-card,
+	.reveal-section:not(.hero).is-visible .project-tile,
+	.reveal-section:not(.hero).is-visible .projects-toggle,
+	.reveal-section:not(.hero).is-visible .contact-aside,
+	.reveal-section:not(.hero).is-visible .contact-form-wrap,
+	.reveal-section:not(.hero).is-visible .contact-form > *,
+	.site-footer.reveal-section.is-visible > .container {
+		transition-delay: 0s !important;
+	}
+
+	.section::after,
+	.hero::after {
+		opacity: 0.08;
+		background-attachment: scroll;
 	}
 }
 
@@ -701,15 +1345,63 @@ a:hover {
 }
 
 .projects-more.is-open .project-grid--extra .project-tile:nth-child(1) {
-	animation-delay: 0.05s;
+	animation-delay: 0.04s;
 }
 
 .projects-more.is-open .project-grid--extra .project-tile:nth-child(2) {
-	animation-delay: 0.12s;
+	animation-delay: 0.08s;
 }
 
 .projects-more.is-open .project-grid--extra .project-tile:nth-child(3) {
-	animation-delay: 0.19s;
+	animation-delay: 0.12s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(4) {
+	animation-delay: 0.16s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(5) {
+	animation-delay: 0.2s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(6) {
+	animation-delay: 0.24s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(7) {
+	animation-delay: 0.28s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(8) {
+	animation-delay: 0.32s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(9) {
+	animation-delay: 0.36s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(10) {
+	animation-delay: 0.4s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(11) {
+	animation-delay: 0.44s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(12) {
+	animation-delay: 0.48s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(13) {
+	animation-delay: 0.52s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(14) {
+	animation-delay: 0.56s;
+}
+
+.projects-more.is-open .project-grid--extra .project-tile:nth-child(15) {
+	animation-delay: 0.6s;
 }
 
 @keyframes projectTileIn {
@@ -749,8 +1441,7 @@ a:hover {
 	margin: 0;
 }
 
-.project-tile-link,
-.project-tile-card {
+.project-tile-link {
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -803,7 +1494,7 @@ a:hover {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	gap: 0.5rem;
+	gap: 0.65rem;
 }
 
 .project-title {
@@ -811,6 +1502,28 @@ a:hover {
 	font-size: 1.0625rem;
 	font-weight: 600;
 	letter-spacing: -0.02em;
+}
+
+.project-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.project-tags li {
+	padding: 0.2rem 0.55rem;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--accent);
+	background: var(--accent-soft);
+	border: 1px solid rgba(61, 156, 253, 0.28);
+	border-radius: 999px;
+	line-height: 1.3;
 }
 
 .project-desc {
@@ -826,15 +1539,6 @@ a:hover {
 	font-size: 0.8125rem;
 	font-weight: 600;
 	color: var(--accent);
-}
-
-.project-cta-muted {
-	color: var(--text-muted);
-	font-weight: 500;
-}
-
-.project-tile--static .project-tile-card {
-	cursor: default;
 }
 
 @media (prefers-reduced-motion: reduce) {

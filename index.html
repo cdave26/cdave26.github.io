@@ -57,6 +57,14 @@
 						<li><a href="#skills">Skills</a></li>
 						<li><a href="#services">Services</a></li>
 						<li><a href="#projects">Projects</a></li>
+						<li>
+							<a
+								href="https://drive.google.com/file/d/1z2nCoF8L49e1VryDl4l__Vjw-wZI2KIp/view?usp=sharing"
+								target="_blank"
+								rel="noopener noreferrer"
+								>Resume</a
+							>
+						</li>
 						<li><a href="#contact" class="nav-cta">Contact</a></li>
 					</ul>
 				</nav>
@@ -76,21 +84,36 @@
 							<p class="hero-lead">
 								I create software solutions that solve real problems combining solid architecture, user-focused design, and dependable code.
 							</p>
+							<!-- Resume: replace PLACEHOLDER_DOCUMENT_ID here and in the nav with your Google Doc ID (from the URL …/document/d/THIS_PART/edit) -->
 							<div class="hero-actions">
 								<a class="btn btn-primary" href="#projects">View projects</a>
 								<a class="btn btn-ghost" href="#contact">Get in touch</a>
+								<a
+									class="btn btn-ghost btn-resume"
+									href="https://drive.google.com/file/d/1z2nCoF8L49e1VryDl4l__Vjw-wZI2KIp/view?usp=sharing"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Download resume
+								</a>
 							</div>
 						</div>
 						<figure class="hero-profile">
-							<div class="profile-frame">
-								<!-- Replace src with ./images/profile.jpg (or .png) when you add your photo -->
-								<img
-									class="profile-photo"
-									src="./images/Dave.jpg"
-									width="400"
-									height="400"
-									alt="Carl Dave Tampoy"
-								/>
+							<div class="profile-visual">
+								<span class="profile-smoke profile-smoke--1" aria-hidden="true"></span>
+								<span class="profile-smoke profile-smoke--2" aria-hidden="true"></span>
+								<span class="profile-smoke profile-smoke--3" aria-hidden="true"></span>
+								<span class="profile-smoke profile-smoke--4" aria-hidden="true"></span>
+								<div class="profile-frame">
+									<!-- Replace src with ./images/profile.jpg (or .png) when you add your photo -->
+									<img
+										class="profile-photo"
+										src="./images/Dave.jpg"
+										width="400"
+										height="400"
+										alt="Carl Dave Tampoy"
+									/>
+								</div>
 							</div>
 							<figcaption class="visually-hidden">Profile photo</figcaption>
 						</figure>
@@ -121,7 +144,7 @@
 							<ul class="facts">
 								<li><span class="fact-label">Role</span> Software engineer</li>
 								<li><span class="fact-label">Experience</span> 5+ years</li>
-								<li><span class="fact-label">Focus</span> Full-stack &amp; quality</li>
+								<li><span class="fact-label">Focus</span> Built to Meet Requirements with Quality</li>
 								<li><span class="fact-label">Location</span> <span class="muted"> Cebole, Quezon, Bukidnon, Philippines</span></li>
 							</ul>
 						</aside>
@@ -133,7 +156,7 @@
 				<div class="container">
 					<h2 id="skills-title" class="section-title">Skills</h2>
 					<p class="section-intro">
-						Tools and technologies I use regularly to design, build, and ship software.
+						Tools and technologies I use regularly to develop, build, and ship software.
 					</p>
 					<ul class="skill-tags" role="list">
 						<li>JavaScript / TypeScript</li>
@@ -144,8 +167,19 @@
 						<li>Git</li>
 						<li>HTML &amp; CSS</li>
 						<li>SEO</li>
-						<li>Wordpress Development</li>
-						<li>Laravel Development</li>
+						<li>Wordpress</li>
+						<li>Laravel </li>
+						<li>Docker </li>
+						<li>Github</li>
+						<li>Gitlab</li>
+						<li>Vue</li>
+						<li>Docker</li>
+						<li>Zapier</li>
+						<li>Google Analytics</li>
+						<li>Google Search Console</li>
+						<li>Google Tag Manager</li>
+						<li>LocalByFlywheel</li>
+
 					</ul>
 			
 				</div>
@@ -264,20 +298,20 @@
 				<div class="container">
 					<h2 id="projects-title" class="section-title">Projects</h2>
 					<p class="section-intro">
-						Selected work—first three shown; expand to see the rest.
+						A selection of projects built with a focus on meeting requirements and delivering quality results. Featured work is shown below, while some projects are not included. Each card opens the live site or reference link.
 					</p>
 					<div class="projects-block">
 						<ul class="project-grid" role="list">
 							<li class="project-tile">
 								<a
 									class="project-tile-link"
-									href="https://github.com/iamcdave/iamcdave.github.io"
+									href="https://enebill.com/"
 									target="_blank"
 									rel="noopener noreferrer"
 								>
 									<div class="project-thumb">
 										<img
-											src="./images/projects/placeholder-portfolio.svg"
+											src="./images/projects/enebill.png"
 											width="800"
 											height="450"
 											alt=""
@@ -286,19 +320,32 @@
 										/>
 									</div>
 									<div class="project-tile-body">
-										<h3 class="project-title">Developer portfolio</h3>
+										<h3 class="project-title">Enebill</h3>
+										<ul class="project-tags" aria-label="Technologies">
+											<li>React</li>
+											<li>TypeScript</li>
+											<li>NextJS</li>
+											<li>Replit</li>
+											<li>NodeJS</li>
+										</ul>
 										<p class="project-desc">
-											Personal site on GitHub Pages—responsive layout, accessible markup, easy to extend.
+											Multi-tenant billing for energy management in embedded networks—focused on Australian strata and
+											residential complexes. Covers meter reads through invoicing, payments, and reconciliation.
 										</p>
 										<span class="project-cta">View project <span aria-hidden="true">→</span></span>
 									</div>
 								</a>
 							</li>
-							<li class="project-tile project-tile--static">
-								<article class="project-tile-card">
+							<li class="project-tile">
+								<a
+									class="project-tile-link"
+									href="https://hris.lanexcorp.com/"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									<div class="project-thumb">
 										<img
-											src="./images/projects/placeholder-app.svg"
+											src="./images/projects/HRIS.png"
 											width="800"
 											height="450"
 											alt=""
@@ -307,19 +354,32 @@
 										/>
 									</div>
 									<div class="project-tile-body">
-										<h3 class="project-title">Product web app</h3>
+										<h3 class="project-title">HRIS system</h3>
+										<ul class="project-tags" aria-label="Technologies">
+											<li>Laravel</li>
+											<li>PHP</li>
+											<li>MySQL</li>
+											<li>AngularJS</li>
+											<li>Docker</li>
+										</ul>
 										<p class="project-desc">
-											Placeholder—replace with your app name and link to demo or source.
+											Web-based HR and payroll hub for employee records, timekeeping, leave, and pay runs—with manager
+											views for approvals, team oversight, and policy-driven workflows.
 										</p>
-										<span class="project-cta project-cta-muted">Add link when ready</span>
+										<span class="project-cta">View project <span aria-hidden="true">→</span></span>
 									</div>
-								</article>
+								</a>
 							</li>
-							<li class="project-tile project-tile--static">
-								<article class="project-tile-card">
+							<li class="project-tile">
+								<a
+									class="project-tile-link"
+									href="https://github.com/cdave26/Suki-App"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									<div class="project-thumb">
 										<img
-											src="./images/projects/placeholder-api.svg"
+											src="./images/projects/kalinada.jpg"
 											width="800"
 											height="450"
 											alt=""
@@ -328,28 +388,37 @@
 										/>
 									</div>
 									<div class="project-tile-body">
-										<h3 class="project-title">Backend &amp; API service</h3>
+										<h3 class="project-title">Kalinada mobile app</h3>
+										<ul class="project-tags" aria-label="Technologies">
+											<li>React Native</li>
+											<li>Expo</li>
+											<li>Rewards</li>
+											<li>QR scan</li>
+										</ul>
 										<p class="project-desc">
-											Placeholder—swap for a real service, docs URL, or repository.
+											Customer loyalty app, where customers can earn points on purchases, scan to redeem perks, and track
+											rewards—built for repeat visits and simple in-store redemption.
 										</p>
-										<span class="project-cta project-cta-muted">Add link when ready</span>
+										<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+									
 									</div>
-								</article>
+								</a>
 							</li>
 						</ul>
 
-						<div
-							class="projects-more"
-							id="projects-more"
-							aria-hidden="true"
-						>
+						<div class="projects-more" id="projects-more" aria-hidden="true">
 							<div class="projects-more-inner">
 								<ul class="project-grid project-grid--extra" role="list">
-									<li class="project-tile project-tile--static">
-										<article class="project-tile-card">
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://lanexcorp.com/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
 											<div class="project-thumb">
 												<img
-													src="./images/projects/placeholder-app.svg"
+													src="./images/projects/lanexcorp.png"
 													width="800"
 													height="450"
 													alt=""
@@ -358,16 +427,230 @@
 												/>
 											</div>
 											<div class="project-tile-body">
-												<h3 class="project-title">Client dashboard</h3>
+												<h3 class="project-title">Lanex Corp website</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>WordPress</li>
+													<li>PHP</li>
+													<li>DIVI THEME</li>
+													<li>YOAST SEO</li>
+													<li>ACF</li>
+												</ul>
 												<p class="project-desc">
-													Example project—replace with title, thumbnail, and link to your work.
+													Corporate site for a Japanese software company that advertise their services, product highlights, and trust-led
+													storytelling for global prospects visiting in English or Japanese.
 												</p>
-												<span class="project-cta project-cta-muted">Add link when ready</span>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
 											</div>
-										</article>
+										</a>
 									</li>
-									<li class="project-tile project-tile--static">
-										<article class="project-tile-card">
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://shymsaunas.com.au/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<div class="project-thumb">
+												<img
+													src="./images/projects/shymsaunas.png"
+													width="800"
+													height="450"
+													alt=""
+													loading="lazy"
+													decoding="async"
+												/>
+											</div>
+											<div class="project-tile-body">
+												<h3 class="project-title">ShymSaunas WooCommerce</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>WordPress</li>
+													<li>WooCommerce</li>
+													<li>PHP</li>
+													<li>Yoast SEO</li>
+													<li>Beaver Builder</li>
+												</ul>
+												<p class="project-desc">
+													E-commerce site for an Australian sauna brand—product catalog, cart/checkout, and content
+													pages tuned for local shipping, trust signals, and seasonal promos.
+												</p>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+											</div>
+										</a>
+									</li>
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://lanexcorp.com/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<div class="project-thumb">
+												<img
+													src="./images/projects/sanplatex.png"
+													width="800"
+													height="450"
+													alt=""
+													loading="lazy"
+													decoding="async"
+												/>
+											</div>
+											<div class="project-tile-body">
+												<h3 class="project-title">Sanplatec WooCommerce</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>WordPress</li>
+													<li>WooCommerce</li>
+													<li>DIVI</li>
+													<li>ACF</li>
+													<li>YOAST SEO</li>
+												</ul>
+												<p class="project-desc">
+													Laboratory equipment website storefront—structured categories, spec-driven product pages, and
+													international-friendly catalog for buyers sourcing laboratory equipment worldwide.
+												</p>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+											</div>
+										</a>
+									</li>
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://saratelsolutions.com/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<div class="project-thumb">
+												<img
+													src="./images/projects/Saratel.png"
+													width="800"
+													height="450"
+													alt=""
+													loading="lazy"
+													decoding="async"
+												/>
+											</div>
+											<div class="project-tile-body">
+												<h3 class="project-title">Saratel Solutions Website</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>Wordpress</li>
+													<li>Tag Div Composer</li>
+													<li>Yoast SEO</li>
+													<li>Analytics</li>
+												</ul>
+												<p class="project-desc">
+													A business outsourcing website built to advertise a Philippines- and Australia-based company,
+													 featuring its core services, client benefits, and step-by-step process for efficient collaboration.
+												</p>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+											</div>
+										</a>
+									</li>
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://skyrocketmarketing.com.au/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<div class="project-thumb">
+												<img
+													src="./images/projects/skyrocketmarketing.png"
+													width="800"
+													height="450"
+													alt=""
+													loading="lazy"
+													decoding="async"
+												/>
+											</div>
+											<div class="project-tile-body">
+												<h3 class="project-title">Skyrocket Marketing Website</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>Wordpress</li>
+													<li>Elementor</li>
+													<li>Yoast SEO</li>
+													<li>Wp-Kadence Theme</li>
+												</ul>
+												<p class="project-desc">
+													Skyrocket Marketing is a digital marketing agency based in Australia that specializes in helping businesses
+													 increase their online presence. 
+													 Their core service offerings typically include search engine optimization (SEO), Google Ads management,
+													  web design, and content marketing.
+												</p>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+											</div>
+										</a>
+									</li>
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://anaca.com.au/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<div class="project-thumb">
+												<img
+													src="./images/projects/anaca.png"
+													width="800"
+													height="450"
+													alt=""
+													loading="lazy"
+													decoding="async"
+												/>
+											</div>
+											<div class="project-tile-body">
+												<h3 class="project-title">Anaca Website</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>Wordpress</li>
+													<li>Understrap theme</li>
+													<li>Tagdiv composer</li>
+													<li>yoast seo</li>
+												</ul>
+												<p class="project-desc">
+													A N & Associates is an accounting firm website that advertise their services and provides a complete suite of services in accounting, 
+													audit, consulting, superannuation, tax advisory and financial planning.
+												</p>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+											</div>
+										</a>
+									</li>
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://getuplist.com/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<div class="project-thumb">
+												<img
+													src="./images/projects/uplist.png"
+													width="800"
+													height="450"
+													alt=""
+													loading="lazy"
+													decoding="async"
+												/>
+											</div>
+											<div class="project-tile-body">
+												<h3 class="project-title">Uplist Website</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>Wordpress</li>
+													<li>Divi theme</li>
+													<li>yoast seo</li>
+													<li>jetpack</li>
+												</ul>
+												<p class="project-desc">
+													a website that advertise their services, An all-in-one solution for lenders and agents to create accurate loan estimates, market listings effectively, and close deals with confidence.
+												</p>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
+											</div>
+										</a>
+									</li>
+									<li class="project-tile">
+										<a
+											class="project-tile-link"
+											href="https://github.com/cdave26/wordpress-ci-cd-plugin-master"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
 											<div class="project-thumb">
 												<img
 													src="./images/projects/placeholder-portfolio.svg"
@@ -379,35 +662,24 @@
 												/>
 											</div>
 											<div class="project-tile-body">
-												<h3 class="project-title">Mobile companion app</h3>
+												<h3 class="project-title">Wordpress CI/CD Plugin</h3>
+												<ul class="project-tags" aria-label="Technologies">
+													<li>PHP</li>
+													<li>JS</li>
+													<li>Git</li>
+													<li>Github</li>
+												</ul>
 												<p class="project-desc">
-													Example project—swap for your mobile or cross-platform build.
+													A wordpress plugin that helps developers to collaborate with their team members to deploy their wordpress website pages and securely using git and github.
 												</p>
-												<span class="project-cta project-cta-muted">Add link when ready</span>
+												<span class="project-cta">View project <span aria-hidden="true">→</span></span>
 											</div>
-										</article>
+										</a>
 									</li>
-									<li class="project-tile project-tile--static">
-										<article class="project-tile-card">
-											<div class="project-thumb">
-												<img
-													src="./images/projects/placeholder-api.svg"
-													width="800"
-													height="450"
-													alt=""
-													loading="lazy"
-													decoding="async"
-												/>
-											</div>
-											<div class="project-tile-body">
-												<h3 class="project-title">WordPress business site</h3>
-												<p class="project-desc">
-													Example project—replace with your WordPress or CMS deliverable.
-												</p>
-												<span class="project-cta project-cta-muted">Add link when ready</span>
-											</div>
-										</article>
-									</li>
+								
+									
+								
+									
 								</ul>
 							</div>
 						</div>
@@ -440,8 +712,7 @@
 				<div class="container contact-shell">
 					<h2 id="contact-title" class="section-title">Contact</h2>
 					<p class="section-intro contact-lead">
-						Send a message, email me directly, or connect on social. The form below delivers to my inbox
-						once you add your Web3Forms key (see note).
+						Send a message, email me directly, or connect me on your social media.
 					</p>
 
 					<div class="contact-grid">
@@ -573,7 +844,7 @@
 			</section>
 		</main>
 
-		<footer class="site-footer">
+		<footer class="site-footer reveal-section">
 			<div class="container footer-inner">
 				<p>© <span id="year"></span> Carl Dave Tampoy. All rights reserved.</p>
 			</div>
@@ -637,6 +908,16 @@
 					var root = document.documentElement;
 					root.style.setProperty("--scroll-hue", String(p.h));
 					root.style.setProperty("--scroll-glow-hue", String(p.g));
+					/* Conic “skin” rotation follows active section */
+					root.style.setProperty("--chameleon-from", String(Math.round(p.h * 1.35 + 95)) + "deg");
+					var sy = window.scrollY || window.pageYOffset || 0;
+					if (prefersReducedMotion()) {
+						root.style.setProperty("--grid-parallax-x", "0px");
+						root.style.setProperty("--grid-parallax-y", "0px");
+					} else {
+						root.style.setProperty("--grid-parallax-x", sy * 0.026 + "px");
+						root.style.setProperty("--grid-parallax-y", sy * 0.055 + "px");
+					}
 				}
 
 				var scrollTicking = false;
